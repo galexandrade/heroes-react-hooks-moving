@@ -1,68 +1,46 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import Header from './components/header';
 import List from './components/list';
 import Toolbar from './components/toolbar';
 import axios from 'axios';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+const App = props => {
+  const [search, setSearch] = useState('');
+  const [heroes, setHeroes] = useState([]);
 
-    this.state = {
-      search: '',
-      heroes: []
-    }
-
-    this.addedHeroHandler = this.addedHeroHandler.bind(this);
-    this.searchHeroHandler = this.searchHeroHandler.bind(this);
-  }
-
-  componentDidMount() {
+  useEffect(() => {
     axios.get('https://heroes-49297.firebaseio.com/heroes.json')
       .then(res => {
         const heroes = Object.keys(res.data).map(key => {
           return res.data[key];
         });
 
-        this.setState({
-          ...this.state,
-          heroes: heroes
-        });
+        setHeroes(heroes);
       })
       .catch(err => console.log(err));
+  }, []);
+
+  const addedHeroHandler = hero => {
+    setHeroes([
+      ...heroes,
+      hero
+    ]);
   }
 
-  addedHeroHandler(hero) {
-    this.setState({
-      ...this.state,
-      heroes: [
-        ...this.state.heroes,
-        hero
-      ]
-    });
-  }
+  const searchHeroHandler = search => setSearch(search);
 
-  searchHeroHandler(search) {
-    this.setState({
-      ...this.state,
-      search: search
-    });
-  }
-
-  render() {
-    const filteredHeroes = this.state.heroes.filter(hero => hero.name.toUpperCase().includes(this.state.search.toUpperCase()));
-    return (
-      <div className="App">
-        <Header/>
-        <Toolbar 
-          addHero={this.addedHeroHandler} 
-          searchHero={this.searchHeroHandler} />
-        <List 
-          heroes={filteredHeroes} />
-      </div>
-    );
-  }
+  const filteredHeroes = heroes.filter(hero => hero.name.toUpperCase().includes(search.toUpperCase()));
+  return (
+    <div className="App">
+      <Header/>
+      <Toolbar 
+        addHero={addedHeroHandler} 
+        searchHero={searchHeroHandler} />
+      <List 
+        heroes={filteredHeroes} />
+    </div>
+  );
 }
 
 export default App;
