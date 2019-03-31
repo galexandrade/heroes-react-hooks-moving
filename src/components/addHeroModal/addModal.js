@@ -1,52 +1,28 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
-import { habilities } from '../hero/hability';
 import HabilityField from './habilityField';
 import axios from 'axios';
+import { useField } from '../../hooks/customHooks';
 
 const DEFAULT_IMAGE = 'https://www.pedagogie.ac-nantes.fr/medias/photo/super-heroe-volando-super-heroes-pintado-por-queyla-9738241_1436103185619-jpg';
 
 const AddModal = props => {
-  const [hero, setHero] = useState({
-    name: '',
-    image: '',
-    strength: 0,
-    wisdom: 0,
-    speed: 0,
-    magic: 0,
-  });
-
-  const [formIsValid, setFormIsValid] = useState(false);
-
-  const validateForm = (hero) => {
-    let isValid = true;
-    if(hero.name.trim() === ''){
-      isValid = false;
-    }
-    else if(hero.image.trim() === ''){
-      isValid = false;
-    }
-    return isValid;
-  }
-
-  const onChangeHandler = event => {
-    const updatedHero = {
-      ...hero,
-      [event.target.id]: event.target.value
-    }
-    setHero(updatedHero);
-    setFormIsValid(validateForm(updatedHero));
-  }
+  const name = useField('', true);
+  const image = useField('', true);
+  const strength = useField(0);
+  const wisdom = useField(0);
+  const speed = useField(0);
+  const magic = useField(0);
 
   const createHero = () => {
     const newHero = {
-      name: hero.name,
-      image: hero.image,
+      name: name.value,
+      image: image.value,
       habilities: {
-        strength: +hero.strength,
-        wisdom: +hero.wisdom,
-        speed: +hero.speed,
-        magic: +hero.magic,
+        strength: +strength.value,
+        wisdom: +wisdom.value,
+        speed: +speed.value,
+        magic: +magic.value,
       }
     }
 
@@ -58,8 +34,11 @@ const AddModal = props => {
       .catch(err => console.log(err));
   }
 
+  const formIsValid = () => {
+    return image.isValid && name.isValid;
+  }
 
-  const image = hero.image !== '' ? hero.image : DEFAULT_IMAGE;
+  const imageSrc = image.value !== '' ? image.value : DEFAULT_IMAGE;
   return (
     <Modal isOpen={true} toggle={props.modalClosed} backdrop={true}>
       <ModalHeader toggle={props.modalClosed}>Let's create a hero</ModalHeader>
@@ -73,14 +52,13 @@ const AddModal = props => {
                   type="text" 
                   id="name" 
                   placeholder="Type your hero's name here" 
-                  onChange={onChangeHandler} 
-                  value={hero.name} />
+                  {...name} />
               </FormGroup>
             </Form>
           </Col>
           <Col xs={12}>
             <img 
-              src={image} 
+              src={imageSrc} 
               alt="New hero" 
               className="new-hero-image" />
           </Col>
@@ -91,20 +69,16 @@ const AddModal = props => {
                   type="text" 
                   id="image" 
                   placeholder="Copy here the image URL" 
-                  onChange={onChangeHandler} 
-                  value={hero.image} />
+                  {...image} />
               </FormGroup>
             </Form>
           </Col>
           <Col xs={12}>
             <Form>
-              {Object.keys(habilities).map(hability => (
-                <HabilityField 
-                  key={hability}
-                  hability={hability} 
-                  value={hero[hability]} 
-                  onChange={onChangeHandler} />
-              ))}
+              <HabilityField hability="strength" {...strength} />
+              <HabilityField hability="wisdom" {...wisdom} />
+              <HabilityField hability="speed" {...speed} />
+              <HabilityField hability="magic" {...magic} />
             </Form>
           </Col>
         </Row>
@@ -113,7 +87,7 @@ const AddModal = props => {
         <Button 
           color="primary" 
           onClick={createHero} 
-          disabled={!formIsValid}>
+          disabled={!formIsValid()}>
           Create
         </Button>
         <Button 
