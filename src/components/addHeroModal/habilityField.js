@@ -3,7 +3,6 @@ import { habilities } from '../hero/hability';
 import { FormGroup, Label, Col, Input } from 'reactstrap';
 
 const HabilityField = ({hability, value, onChange}) => {
-    console.log(hability, value);
     return (
         <FormGroup row>
             <Label 

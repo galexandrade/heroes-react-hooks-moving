@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
 import HabilityField from './habilityField';
 import axios from 'axios';
@@ -13,6 +13,21 @@ const AddModal = props => {
   const wisdom = useField(0);
   const speed = useField(0);
   const magic = useField(0);
+
+  useEffect(() => {
+    console.log('Going to add EventListener');
+    document.addEventListener('mousemove', mouseMoveHandler);
+
+    //It makes a cleanup
+    return () => {
+      console.log('Removing event listener');
+      document.removeEventListener('mousemove', mouseMoveHandler);
+    }
+  }, [])
+
+  const mouseMoveHandler = event => {
+    console.log(event.clientX, event.clientY);
+  };
 
   const createHero = () => {
     const newHero = {
@@ -52,7 +67,8 @@ const AddModal = props => {
                   type="text" 
                   id="name" 
                   placeholder="Type your hero's name here" 
-                  {...name} />
+                  value={name.value}
+                  onChange={name.onChange} />
               </FormGroup>
             </Form>
           </Col>
@@ -68,8 +84,9 @@ const AddModal = props => {
                 <Input 
                   type="text" 
                   id="image" 
-                  placeholder="Copy here the image URL" 
-                  {...image} />
+                  placeholder="Copy here the image URL"
+                  value={image.value}
+                  onChange={image.onChange} />
               </FormGroup>
             </Form>
           </Col>
