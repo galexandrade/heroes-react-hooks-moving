@@ -26,6 +26,20 @@ class AddModal extends Component {
     this.createHero = this.createHero.bind(this);
   }
 
+  componentDidMount() {
+    console.log('Going to add EventListener');
+    document.addEventListener('mousemove', this.mouseMoveHandler);
+  }
+
+  componentWillUnmount() {
+    console.log('Removing event listener');
+    document.removeEventListener('mousemove', this.mouseMoveHandler);
+  }
+
+  mouseMoveHandler = event => {
+    console.log(event.clientX, event.clientY);
+  }
+
   validateForm (form) {
     let isValid = true;
     if(form.hero.name.trim() === ''){
