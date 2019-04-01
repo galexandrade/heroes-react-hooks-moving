@@ -12,7 +12,7 @@ const Hero = ({hero}) => {
         ));
 
     return (
-        <Card>
+        <Card className="hero">
             <CardImg 
                 top 
                 width="100%" 

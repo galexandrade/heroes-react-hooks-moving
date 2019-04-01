@@ -33,3 +33,10 @@
   width: 100%;
   padding: 50px;
 }
+
+.hero {
+  margin-bottom: 20px;
+  box-shadow: 10px;
+  box-shadow: 3px 5px 10px -5px rgba(0,0,0,0.75);
+  border-radius: 50px;
+}
