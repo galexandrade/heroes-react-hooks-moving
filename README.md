@@ -21,5 +21,72 @@ const Toolbar = props => {
 }
 ```
 * 2 - Move `AddHeroModal` to function component
+```javascript
+const AddModal = props => {
+  const [hero, setHero] = useState({
+    name: '',
+    image: '',
+    strength: 0,
+    wisdom: 0,
+    speed: 0,
+    magic: 0,
+  });
+  const [formIsValid, setFormIsValid] = useState(false);
+
+  useEffect(() => {
+    console.log('Going to add EventListener');
+    document.addEventListener('mousemove', mouseMoveHandler);
+
+    return () => {
+      console.log('Removing event listener');
+      document.removeEventListener('mousemove', mouseMoveHandler);
+    }
+  }, []);
+
+  const mouseMoveHandler = event => console.log(event.clientX, event.clientY);
+
+  const validateForm = hero => {
+    let isValid = true;
+    if(hero.name.trim() === ''){
+      isValid = false;
+    }
+    else if(hero.image.trim() === ''){
+      isValid = false;
+    }
+    return isValid;
+  }
+
+  const onChangeHandler = event => {
+    const newHero = {
+      ...hero,
+      [event.target.id]: event.target.value
+    }
+    setHero(newHero);
+    setFormIsValid(validateForm(newHero));
+  }
+
+  const createHero = () => {
+    const newHero = {
+      name: hero.name,
+      image: hero.image,
+      habilities: {
+        strength: +hero.strength,
+        wisdom: +hero.wisdom,
+        speed: +hero.speed,
+        magic: +hero.magic,
+      }
+    }
+
+    axios.post('https://heroes-49297.firebaseio.com/heroes.json', newHero)
+      .then(res => {
+        props.modalClosed();
+        props.addHero(newHero)
+      })
+      .catch(err => console.log(err));
+  }
+
+  return {...continue...};
+}
+```
 * 3 - Move `App` to function component
 * 4 - Create a custom hook `useField` to control form fields
