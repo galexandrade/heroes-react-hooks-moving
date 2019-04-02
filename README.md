@@ -1,5 +1,5 @@
 # Heroes
-## Moving from statefull components functional components with REACT HOOKS
+## Moving from statefull components to functional components with REACT HOOKS
 
 ### Architecture
 ![alt text](https://i.ibb.co/HFpfZG3/Screenshot-2019-04-01-20-12-42.png)
