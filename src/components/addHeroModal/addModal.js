@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
-import { habilities } from '../hero/hability';
 import HabilityField from './habilityField';
 import axios from 'axios';
 
@@ -130,13 +129,22 @@ class AddModal extends Component {
             </Col>
             <Col xs={12}>
               <Form>
-                {Object.keys(habilities).map(hability => (
-                  <HabilityField 
-                    key={hability}
-                    hability={hability} 
-                    value={this.state.hero[hability]} 
-                    onChange={this.onChangeHandler} />
-                ))}
+                <HabilityField 
+                  hability="strength"
+                  value={this.state.hero.strength} 
+                  onChange={this.onChangeHandler} />
+                <HabilityField 
+                  hability="wisdom"
+                  value={this.state.hero.wisdom} 
+                  onChange={this.onChangeHandler} />
+                <HabilityField 
+                  hability="speed"
+                  value={this.state.hero.speed} 
+                  onChange={this.onChangeHandler} />
+                <HabilityField 
+                  hability="magic"
+                  value={this.state.hero.magic} 
+                  onChange={this.onChangeHandler} />
               </Form>
             </Col>
           </Row>
