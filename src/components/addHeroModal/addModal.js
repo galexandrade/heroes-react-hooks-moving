@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
-import { habilities } from '../hero/hability';
 import HabilityField from './habilityField';
 import axios from 'axios';
+
+import { useField } from '../../hooks/customHooks';
 
 const DEFAULT_IMAGE = 'https://www.pedagogie.ac-nantes.fr/medias/photo/super-heroe-volando-super-heroes-pintado-por-queyla-9738241_1436103185619-jpg';
 
 const AddModal = props => {
-  const [hero, setHero] = useState({
-    name: '',
-    image: '',
-    strength: 0,
-    wisdom: 0,
-    speed: 0,
-    magic: 0,
-  });
-  const [formIsValid, setFormIsValid] = useState(false);
+  const name = useField('', true);
+  const image = useField('', true);
+  const strength = useField(0);
+  const wisdom = useField(0);
+  const speed = useField(0);
+  const magic = useField(0);
 
   useEffect(() => {
     console.log('Going to add EventListener');
@@ -29,35 +27,17 @@ const AddModal = props => {
 
   const mouseMoveHandler = event => console.log(event.clientX, event.clientY);
 
-  const validateForm = hero => {
-    let isValid = true;
-    if(hero.name.trim() === ''){
-      isValid = false;
-    }
-    else if(hero.image.trim() === ''){
-      isValid = false;
-    }
-    return isValid;
-  }
-
-  const onChangeHandler = event => {
-    const newHero = {
-      ...hero,
-      [event.target.id]: event.target.value
-    }
-    setHero(newHero);
-    setFormIsValid(validateForm(newHero));
-  }
+  const validateForm = () => name.isValid && image.isValid;
 
   const createHero = () => {
     const newHero = {
-      name: hero.name,
-      image: hero.image,
+      name: name.value,
+      image: image.value,
       habilities: {
-        strength: +hero.strength,
-        wisdom: +hero.wisdom,
-        speed: +hero.speed,
-        magic: +hero.magic,
+        strength: +strength.value,
+        wisdom: +wisdom.value,
+        speed: +speed.value,
+        magic: +magic.value,
       }
     }
 
@@ -69,8 +49,7 @@ const AddModal = props => {
       .catch(err => console.log(err));
   }
 
-
-  const image = hero.image !== '' ? hero.image : DEFAULT_IMAGE;
+  const defaultImage = image.value !== '' ? image.value : DEFAULT_IMAGE;
     
   return (
     <Modal isOpen={true} toggle={props.modalClosed} backdrop={true}>
@@ -85,14 +64,14 @@ const AddModal = props => {
                   type="text" 
                   id="name" 
                   placeholder="Type your hero's name here" 
-                  onChange={onChangeHandler} 
-                  value={hero.name} />
+                  onChange={name.onChange} 
+                  value={name.value} />
               </FormGroup>
             </Form>
           </Col>
           <Col xs={12}>
             <img 
-              src={image} 
+              src={defaultImage} 
               alt="New hero" 
               className="new-hero-image" />
           </Col>
@@ -103,20 +82,17 @@ const AddModal = props => {
                   type="text" 
                   id="image" 
                   placeholder="Copy here the image URL" 
-                  onChange={onChangeHandler} 
-                  value={hero.image} />
+                  onChange={image.onChange} 
+                  value={image.value} />
               </FormGroup>
             </Form>
           </Col>
           <Col xs={12}>
             <Form>
-              {Object.keys(habilities).map(hability => (
-                <HabilityField 
-                  key={hability}
-                  hability={hability} 
-                  value={hero[hability]} 
-                  onChange={onChangeHandler} />
-              ))}
+              <HabilityField hability="strength" {...strength} />
+              <HabilityField hability="wisdom" {...wisdom} />
+              <HabilityField hability="speed" {...speed} />
+              <HabilityField hability="magic" {...magic} />
             </Form>
           </Col>
         </Row>
@@ -125,7 +101,7 @@ const AddModal = props => {
         <Button 
           color="primary" 
           onClick={createHero} 
-          disabled={!formIsValid}>
+          disabled={!validateForm()}>
           Create
         </Button>
         <Button 
