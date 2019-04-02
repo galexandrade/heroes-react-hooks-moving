@@ -192,7 +192,7 @@ const AddModal = props => {
     
   return (
     <Modal isOpen={true} toggle={props.modalClosed} backdrop={true}>
-      <ModalHeader toggle={props.modalClosed}>Let's create a hero</ModalHeader>
+      <ModalHeader toggle={props.modalClosed}>Lets create a hero</ModalHeader>
       <ModalBody>
         <Row>
           <Col xs={12}>
