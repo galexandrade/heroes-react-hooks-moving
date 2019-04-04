@@ -72,10 +72,10 @@ class AddModal extends Component {
       name: this.state.hero.name,
       image: this.state.hero.image,
       habilities: {
+        magic: +this.state.hero.magic,
+        speed: +this.state.hero.speed,
         strength: +this.state.hero.strength,
         wisdom: +this.state.hero.wisdom,
-        speed: +this.state.hero.speed,
-        magic: +this.state.hero.magic,
       }
     }
 

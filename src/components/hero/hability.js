@@ -9,7 +9,7 @@ export const habilities = {
     },
     wisdom: {
         name: 'Wisdom',
-        icon: 'https://img.icons8.com/ios/20/000000/guru.png',
+        icon: 'https://img.icons8.com/ios/20/000000/brain.png',
         style: 'primary'
     },
     speed: {
