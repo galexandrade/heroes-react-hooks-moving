@@ -51,14 +51,14 @@ class AddModal extends Component {
   }
 
   onChangeHandler(event) {
-    const hero = {
+    const newHero = {
       ...this.state.hero,
       [event.target.id]: event.target.value
     }
 
     const newState = {
       ...this.state,
-      hero: hero
+      hero: newHero
     };
 
     this.setState({
@@ -68,7 +68,7 @@ class AddModal extends Component {
   }
 
   createHero() {
-    const hero = {
+    const newHero = {
       name: this.state.hero.name,
       image: this.state.hero.image,
       habilities: {
@@ -79,17 +79,17 @@ class AddModal extends Component {
       }
     }
 
-    axios.post('https://heroes-49297.firebaseio.com/heroes.json', hero)
+    axios.post('https://heroes-49297.firebaseio.com/heroes.json', newHero)
       .then(res => {
         this.props.modalClosed();
-        this.props.addHero(hero)
+        this.props.addHero(newHero)
       })
       .catch(err => console.log(err));
   }
 
 
   render() {
-    const image = this.state.hero.image !== '' ? this.state.hero.image : DEFAULT_IMAGE;
+    const imageToLoad = this.state.hero.image !== '' ? this.state.hero.image : DEFAULT_IMAGE;
     
     return (
       <Modal isOpen={true} toggle={this.props.modalClosed} backdrop={true}>
@@ -111,7 +111,7 @@ class AddModal extends Component {
             </Col>
             <Col xs={12}>
               <img 
-                src={image} 
+                src={imageToLoad} 
                 alt="New hero" 
                 className="new-hero-image" />
             </Col>
