@@ -12,14 +12,14 @@ import {
     Label,
     Input
 } from 'reactstrap';
-import HabilityField from './HabilityField';
+import HabilityInput from './HabilityInput';
 import axios from 'axios';
 import { useField } from '../../hooks/customHooks';
 
 const DEFAULT_IMAGE =
     'https://www.pedagogie.ac-nantes.fr/medias/photo/super-heroe-volando-super-heroes-pintado-por-queyla-9738241_1436103185619-jpg';
 
-const AddModal = props => {
+const AddHeroModal = props => {
     const name = useField('', true);
     const image = useField('', true);
     const strength = useField(0);
@@ -111,10 +111,10 @@ const AddModal = props => {
                     </Col>
                     <Col xs={12}>
                         <Form>
-                            <HabilityField hability="strength" {...strength} />
-                            <HabilityField hability="wisdom" {...wisdom} />
-                            <HabilityField hability="speed" {...speed} />
-                            <HabilityField hability="magic" {...magic} />
+                            <HabilityInput hability="strength" {...strength} />
+                            <HabilityInput hability="wisdom" {...wisdom} />
+                            <HabilityInput hability="speed" {...speed} />
+                            <HabilityInput hability="magic" {...magic} />
                         </Form>
                     </Col>
                 </Row>
@@ -135,4 +135,4 @@ const AddModal = props => {
     );
 };
 
-export default AddModal;
+export default AddHeroModal;

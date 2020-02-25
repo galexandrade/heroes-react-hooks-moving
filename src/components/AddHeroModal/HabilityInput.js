@@ -2,7 +2,7 @@ import React from 'react';
 import { habilities } from '../Hero/Hability';
 import { FormGroup, Label, Col, Input } from 'reactstrap';
 
-const HabilityField = ({ hability, value, onChange }) => {
+const HabilityInput = ({ hability, value, onChange }) => {
     return (
         <FormGroup row>
             <Label for={hability} sm={2}>
@@ -22,4 +22,4 @@ const HabilityField = ({ hability, value, onChange }) => {
     );
 };
 
-export default HabilityField;
+export default HabilityInput;

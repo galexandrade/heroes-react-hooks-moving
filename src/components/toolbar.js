@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Input, Col, Row } from 'reactstrap';
-import AddModal from './AddHeroModal/AddModal';
+import AddHeroModal from './AddHeroModal/AddHeroModal';
 
 const Toolbar = props => {
     const [openAddModal, setOpenAddModal] = useState(false);
@@ -25,7 +25,10 @@ const Toolbar = props => {
                 </Button>
             </Col>
             {openAddModal ? (
-                <AddModal modalClosed={switchModal} addHero={props.addHero} />
+                <AddHeroModal
+                    modalClosed={switchModal}
+                    addHero={props.addHero}
+                />
             ) : null}
         </Row>
     );
