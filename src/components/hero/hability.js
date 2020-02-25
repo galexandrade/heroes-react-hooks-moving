@@ -1,5 +1,5 @@
 import React from 'react';
-import { Row, Col, Progress } from 'reactstrap'; 
+import { Row, Col, Progress } from 'reactstrap';
 
 export const habilities = {
     strength: {
@@ -21,31 +21,29 @@ export const habilities = {
         name: 'Magic',
         icon: 'https://img.icons8.com/ios/20/000000/fantasy.png',
         style: 'danger'
-    },
+    }
 };
 
-const Hability = ({type, value}) => {
+const Hability = ({ type, value }) => {
     const hability = habilities[type];
 
     return (
         <Row className="hability">
             <Col sm={2}>
-                <img 
-                    src={hability.icon} 
-                    alt={hability.name} 
-                    title={hability.name} 
-                    className="hability-icon" />
+                <img
+                    src={hability.icon}
+                    alt={hability.name}
+                    title={hability.name}
+                    className="hability-icon"
+                />
             </Col>
             <Col sm={10}>
-                <Progress 
-                    animated 
-                    color={hability.style} 
-                    value={value}>
+                <Progress animated color={hability.style} value={value}>
                     {value}
                 </Progress>
             </Col>
         </Row>
     );
-}
+};
 
 export default Hability;
