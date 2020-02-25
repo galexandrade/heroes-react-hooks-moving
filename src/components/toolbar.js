@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Input, Col, Row } from 'reactstrap';
-import AddModal from './addHeroModal/addModal';
+import AddModal from './AddHeroModal/AddModal';
 
 const Toolbar = props => {
     const [openAddModal, setOpenAddModal] = useState(false);

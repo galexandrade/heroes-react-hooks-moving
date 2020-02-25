@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, Row } from 'reactstrap';
-import Hero from './hero/hero';
+import Hero from './Hero/Hero';
 
 const List = ({ heroes }) => {
     return (

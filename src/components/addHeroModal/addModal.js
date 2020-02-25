@@ -12,7 +12,7 @@ import {
     Label,
     Input
 } from 'reactstrap';
-import HabilityField from './habilityField';
+import HabilityField from './HabilityField';
 import axios from 'axios';
 import { useField } from '../../hooks/customHooks';
 

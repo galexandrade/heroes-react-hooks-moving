@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardImg, CardBody, CardTitle } from 'reactstrap';
-import Hability from './hability';
+import Hability from './Hability';
 
 const Hero = ({ hero }) => {
     const habilities = Object.keys(hero.habilities).map(hability => (

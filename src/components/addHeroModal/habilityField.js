@@ -1,5 +1,5 @@
 import React from 'react';
-import { habilities } from '../hero/hability';
+import { habilities } from '../Hero/Hability';
 import { FormGroup, Label, Col, Input } from 'reactstrap';
 
 const HabilityField = ({ hability, value, onChange }) => {
